@@ -70,7 +70,8 @@ public abstract class Staff {
 
     public void setWorkingHours(int workingHours) {
         if (workingHours <= 0) {
-            throw new IllegalArgumentException("Working hours must be positive");
+            System.out.println("Error: Hours cannot be negative");
+            return;
         }
         this.workingHours = workingHours;
     }
