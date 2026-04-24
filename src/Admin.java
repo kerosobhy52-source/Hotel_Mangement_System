@@ -104,4 +104,12 @@ public class Admin extends Staff {
         }
         return null;
     }
+    public void viewAllRooms() 
+    {
+    System.out.println("\n--- LIST OF ALL ROOMS ---");
+    for (Room r : HotelDatabase.rooms) {
+        // This assumes your Room class has a way to get the number and type name
+        System.out.println("Room #" + r.getRoomNumber() + " | Type: " + r.getType().getName());
+    }
+    }
 }
