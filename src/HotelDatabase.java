@@ -2,20 +2,26 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 
 public class HotelDatabase {
-
-
     public static ArrayList<Guest> guests = new ArrayList<>();
     public static ArrayList<Room> rooms = new ArrayList<>();
     public static ArrayList<Reservation> reservations = new ArrayList<>();
     public static ArrayList<Invoice> invoices = new ArrayList<>();
     public static ArrayList<RoomType> roomTypes = new ArrayList<>();
     public static ArrayList<Amenity> amenities = new ArrayList<>();
+    public static ArrayList<Staff> staffList = new ArrayList<>();
 
     static {
+        guests.add(new Guest("tawfik", "pass12345", LocalDate.of(2000,1,1), 500.0,"cairo", Gender.MALE, "High floor"));
         initializeData();
+        initialize();
     }
-
-
+     public static void initialize() {
+        Admin a1=new Admin("tony", "12345678", LocalDate.of(1990, 5, 10),40);
+        staffList.add(a1);
+        Receptionist recep1 = new Receptionist("sara", "password123",LocalDate.of(2000,1,1),40);
+        HotelDatabase.staffList.add(recep1);
+        //System.out.println("System Initialized: " + staffList.size() + " staff added.");
+    }
     private static void initializeData() {
 
 
@@ -35,8 +41,6 @@ public class HotelDatabase {
         amenities.add(wifi);
         amenities.add(tv);
         amenities.add(minibar);
-
-
         Room r1 = new Room(101, single);
         r1.addAmenity(wifi);
         r1.addAmenity(tv);
@@ -81,4 +85,21 @@ public class HotelDatabase {
 
         invoices.add(inv1);
     }
+    public static Guest findGuest(String username) {
+    for (Guest g : guests) {
+        if (g.getUsername().equalsIgnoreCase(username)) {
+            return g;
+        }
+    }
+    return null; // Not found
+    }
+
+     public static Room findRoom(int number) {
+    for (Room r : rooms) {
+        if (r.getRoomNumber() == number) {
+            return r;
+        }
+    }
+    return null;
+    }     
 }
