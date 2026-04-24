@@ -10,7 +10,7 @@ public class Guest {
     private String address;
     private Gender gender;
     private String roomPreferences;
-
+    public static ArrayList<Guest> guests = new ArrayList<>();
     private List<Reservation> reservations = new ArrayList<>();
 
     //Constructor
@@ -133,10 +133,12 @@ public class Guest {
         public Reservation makeReservation(Room room, LocalDate checkIn, LocalDate checkOut) {
 
             if (!room.isAvailable()) {
-                throw new RuntimeException("Room not available");
+                System.out.println("invalid");
+               return null;
             }
 
             Reservation res = new Reservation(this, room, checkIn, checkOut);
+            room.setAvailable(false);
             HotelDatabase.reservations.add(res);
             return res;
         }
@@ -160,7 +162,7 @@ public class Guest {
         Invoice invoice = new Invoice(r, method);
 
         if (this.balance < invoice.getTotalAmount()) {
-            throw new RuntimeException("Insufficient balance");
+            System.out.println("invalid,not enough balance");
         }
 
         this.balance -= invoice.getTotalAmount();
@@ -177,6 +179,16 @@ public class Guest {
                 ", gender=" + gender +
                 ", preferences='" + roomPreferences + '\'' +
                 '}';
+    }
+        public Reservation getLatestReservation() 
+    {
+      Reservation latest = null;
+    for (Reservation r : HotelDatabase.reservations) {
+        if (r.getGuest().equals(this)) {
+            latest = r;
+        }
+    }
+     return latest;
     }
 }
 
